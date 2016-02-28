@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page title="WELCOME">
+	<form id='spaceFrm' height='200px'>
+		<row><cell height='200px'></cell></row>
+	</form>
+	<form id='logInFrm' width='200px' type='OK' alternative_ok ="Login" align='center' class='login'>
+		<row><cell height="20px"></cell></row>
+		<row>
+			<cell colspan='2' align='center'>
+				<label id='userNameLabel' value='welcome' />
+			</cell>
+		</row>
+		<row>
+			<cell colspan='2' align='center'>
+				<label id='userNameLabel' value='enter_pw' />
+			</cell>
+		</row>
+		<row><cell height='20px'></cell></row>
+		<row>
+			<cell>
+				<label id='userNameLabel' value='user_name' />
+			</cell>
+			<cell>
+				<text type='text'  id='userName' />
+			</cell> 
+		</row>
+		<row>
+			<cell>
+				<label id='passwordLabel' value='password' />
+			</cell>
+			<cell>
+				<text type='password' id='password' onclick="defaulthandler.login" />
+			</cell>
+		</row>
+		<row><cell height="20px"></cell></row>
+		<row>
+			<cell colspan='2' align='center'>
+				<button id='logIn' onclick="defaulthandler.login" label="Login" action="defaulthandler.login"/>
+			</cell>
+		</row>
+		<row><cell height="50px"></cell></row>
+	</form>
+</page>

@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page id='page' title="tabs">
+	<tabs id='main_tabs'>
+		<tab id='tab1' title='customers' default='true' image='images/customer80x80.png'>
+			<tabs id='customer_tabs'>
+				<tab id='tab11' title='customers_card'>
+					<row>
+						<cell>
+							<button id='select_customer' onclick="customer.selectCustomer" label="mark_customer_for_dailing"/>
+						</cell>
+					</row>
+					<table id='customers_card' title='customers_card'
+						db_table='STK_CUSTOMER'
+						allow_insert='true' 
+						allow_delete='true'
+						allow_update='true'
+						fill_data='false'
+						order-by ="cust_name"
+						width='520'
+						height='300'
+						>
+						<column id='CUST_IDcol' title=''  pk='true' align='center'>
+							<text type='text'  id='cust_id'  readonly='true' width='20'/>
+						</column>
+						<column id='CUST_NAMEcol' title='cust_name' align='center' width='200'>
+							<text type='text'  id='cust_name' 	/>
+						</column>
+						<column id='phone_numbercol' title='phone_number' align='center' width='100'>
+							<text type='text'  id='phone_number'/>
+						</column>
+						<column id='mobile_numbercol' title='mobile_number' align='center' width='100'>
+							<text type='text'  id='mobile_number'/>
+						</column>
+					</table>
+				</tab>
+				<tab id='tab16' title='statement' selected='customer.statementselected'>
+				</tab>
+				<tab id='tab12' title='new_invoice' selected='customer.newinvoiceselected'>
+					<row>
+						<cell colspan='3'>
+							<form id='invoiceGeaderForm' width='200px' type='OK' alternative_ok='continue' align='center'>
+								<row><cell height="20px"></cell></row>
+								<row>
+									<cell width='100px'></cell>
+									<cell colspan='2' align='center'>
+										<text type='text' style='display:none;' id='inv_id'></text>
+									</cell>
+									<cell align='center'>
+										<label is='custNameLabel' value='customer'></label>
+									</cell>
+									<cell  align='center'>
+										<label id='invoiceDateLabel' value='date'></label>
+									</cell>
+									<cell  align='center'>
+										<label id='invoiceTotalLabel' value='total'></label>
+									</cell>
+									<cell  align='center'>
+										<label id='invoiceDiscountLabel' value='discount'></label>
+									</cell>
+									<cell  align='center'>
+										<label id='invoiceNetLabel' value='INV_NET'></label>
+									</cell>
+									<cell  align='center'>
+										<label id='invoicePaidLabel' value='paid'></label>
+									</cell>
+									<cell  align='center'>
+										<label id='invoiceDebitLabel' value='debit'></label>
+									</cell>
+								</row>
+								<row>
+									<cell colspan='2' align='center'>
+										
+									</cell>
+									<cell width='100px'></cell>
+									<cell>
+										<text type='text' id='inv_customer_name'></text>
+									</cell>
+									<cell>
+										<date id='inv_date'></date>
+									</cell>
+									<cell>
+										<text type='text' id='inv_total' />
+									</cell>
+									<cell>
+										<text type='text' id='inv_discount' />
+									</cell>
+									<cell>
+										<text type='text' id='inv_net' />
+									</cell>
+									<cell>
+										<text type='text' id='inv_paid' />
+									</cell>
+									<cell>
+										<text type='text' id='inv_debit' />
+									</cell>
+								</row>
+							</form>
+						</cell>
+					</row>
+					<row>
+						<cell colspan='2'>
+							<table id='invoice_details_card' title='invoice_details'
+								db_table='STK_INVOICE_DETAIL'
+								allow_insert='true' 
+								allow_delete='true'
+								allow_update='true'
+								allow_search='false'
+								fill_data='false'
+								order-by ="cust_name"
+								width='520'
+								height='300'
+								>
+									<column id='ID_IDcol' title=''  pk='true' align='center'>
+										<text type='text'  id='id_id'  readonly='true' width='0'/>
+									</column>
+									<column id='CUST_NAMEcol' title='cust_name' align='center' width='200'>
+										<text type='text'  id='cust_name' 	/>
+									</column>
+									<column id='phone_numbercol' title='phone_number' align='center' width='100'>
+										<text type='text'  id='phone_number'/>
+									</column>
+									<column id='mobile_numbercol' title='mobile_number' align='center' width='100'>
+										<text type='text'  id='mobile_number'/>
+									</column>
+							</table>
+						</cell>
+						<cell>
+							<tree id='itemsTree' db_table='items'
+								type='complex'>
+								<level db_table='category' pk='id' label='name'>
+									<level db_table='item' pl='id' parent='cat_id' label='name'></level>
+								</level>	
+							</tree>
+						</cell>
+					</row>
+					<row>
+						<cell colspan='3'>
+							<label value='total results is here'></label>
+							
+						</cell>
+					</row>
+					<row>
+						<cell colspan='3'>
+							<label id='nicustdealingwith' value='customer_dealing_with' />
+							<label id='new_inv_cust' />
+						</cell>
+					</row>
+				</tab>
+				<tab id='tab13' title='paying' selected='customer.payingselected'>
+				</tab>
+				<tab id='tab14' title='archieve_invoice' selected='customer.archiveinvoiceselected'>
+				</tab>
+				<tab id='tab15' title='retain_invoice' selected='customer.retaininvselected'>
+				</tab>
+				
+			</tabs>
+		</tab>
+		<tab id='tab2' title='daily_payment' image='images/customer80x80.png'>
+			<table id='daily_payment_table'
+				db_table='daily_payment'
+				allow_insert='true' 
+				allow_delete='true'
+				allow_update='true'
+				order-by ="date"
+				width='800'
+				height='300'
+				savemethod='dailypayment._save'
+				newmethod= 'dailypayment._new'
+				deletemethod='dailypayment._delete'
+				new='dailypayment._new'
+				math-expression='(c9=((c7=((c3+c5)*c4))-c8))'
+				>
+				<column id='dpidcol' title='row_id'  pk='true'>
+					<text type='text' id='id' readonly='true' />													<!-- 0 -->
+				</column>
+				<column id='daily_payment_itmcol' title='item' search='true' search-cond='like' align='center'>
+					<select id='item' source='db' dbtable='items' value='id' label='name' onchanged='affect' >		<!-- 1 -->
+						<affects>
+							<affect type='col' id='totalquantity' source='db' dbtable='items' field='quantity' 			where='id=#{new_val}' ></affect>
+							<affect type='col' id='payment_price' source='db' dbtable='items' field='payment_price' 	where='id=#{new_val}' ></affect>
+						</affects>
+					</select>
+				</column>
+				<column id='daily_payment_quantitycol' title='total_quantity'>
+					<text type='text' id='totalquantity' readonly='true' />											<!-- 2 -->
+				</column>
+				<column id='daily_payment_quantitycol' title='quantity' search='true' search-cond='='>
+					<text type='text' id='quantity'  onchanged='math_exp'/>											<!-- 2 -->
+				</column>
+				<column id='daily_payment_payment_pricecol' title='payment_price' >
+					<text type='text' id='payment_price' onchanged='math_exp'  />									<!-- 3 -->
+				</column>				
+				<column id='daily_payment_fromout_qunatitycol' title='fromout_qunatity'>
+					<text type='text' id='fromout_qunatity'  onchanged='math_exp'/>									<!-- 4 -->
+				</column>
+				<column id='daily_payment_fromout_pricecol' title='fromout_price'>
+					<text type='text' id='fromout_price' />															<!-- 5 -->
+				</column>
+				<column id='daily_payment_fromout_totalcol' title='total' >
+					<text type='text' id='total' readonly='true'  />												<!-- 6 -->
+				</column>
+				<column id='daily_payment_discountecol' title='discount'>
+					<text type='text' id='discount'  onchanged='math_exp'/>											<!-- 7 -->
+				</column>
+				<column id='daily_payment_netcol' title='net'>
+					<text type='text' id='net' readonly='true' onchanged='math_exp'/>								<!-- 8 -->
+				</column>
+				<column id='dpqcol' title='date' search='true' search-cond='>='>
+					<date type='text' id='date' default='today' />													<!-- 9 -->
+				</column>
+			</table>
+		</tab>
+		<tab id='tab3' title='vendors' image='images/suppliers80x80.png'>
+			
+		</tab>
+		<tab id='tab4' title='stock_items' image='images/items80x80.png'>
+			<accordions id='stkItemsAcc'>
+				<accordion id='stk_itm_accordion_store' title='stocks'>
+					<table id='stk_itm_table_store' title='stores_table'
+							db_table='stock'
+							allow_insert='true' 
+							allow_delete='true'
+							allow_update='true'
+							fill_data='true'
+							order-by ="name"
+							width='800'
+							height='300'>
+						<column id='stkidcol' title='stock_id'  pk='true'>
+							<text type='text'  id='id' readonly='true' />
+						</column>
+						<column id='stknamecol' title='stock_name' search='true' search-cond='like' filter='true' align='center'>
+							<text type='text'  id='name'	/>
+						</column>
+						<column id='stkplacecol' title='stock_place' search='true' search-cond='like' filter='true' align='center'>
+							<text type='text'  id='place' 	/>
+						</column>
+						<column id='stkwidthcol' title='stock_width' align='right'>
+							<text type='text'  id='width' />
+						</column>
+						<column id='stklengthcol' title='stock_length' align='right'>
+							<text type='text'  id='height' />
+						</column>
+						<column id='stkheightcol' title='stock_height' align='right' >
+							<text type='text'  id='height' />
+						</column>
+						<column id='stkrentcostcol' title='stock_rentcost' align='center' width='120'>
+							<text type='text'  id='rent_cost' />
+						</column>
+					</table>
+				</accordion>
+				<accordion id='stk_itm_accordion_category' title='category'>
+					<table id='stk_itm_table_category' title='category_table'
+							db_table='category'
+							allow_insert='true' 
+							allow_delete='true'
+							allow_update='true'
+							fill_data='true'
+							width='800'
+							height='400'>
+						<column id='stkidcol' title='category_id'  pk='true'>
+							<text type='text'  id='id' readonly='true' />
+						</column>
+						<column id='stknamecol' title='category_name' search='true' search-cond='like' filter='true' align='center'>
+							<text type='text'  id='name'	/>
+						</column>
+						<column id='stktypecol' title='category_type' search='true' search-cond='=' filter='true' align='center'>
+							<select id='type' source='options' value='1;;2' label='cat_stock;;cat_service'></select>
+						</column>
+					</table>
+				</accordion>
+				<accordion id='stk_itm_accordion_items' title='items'>
+					<table id='stk_itm_table_items'
+						db_table='items'
+						allow_insert='true'
+						allow_delete='true'
+						allow_update='true'
+						fill_data='false'
+						width='800'
+						height='300'>
+						
+						<column id='itmidcol' title='item_id'  pk='true'>
+							<text type='text'  id='id' readonly='true' />
+						</column>
+						<column id='itmnamecol' title='item_name'  search='true' search-cond='like'>
+							<text type='text'  id='name' />
+						</column>
+						<column id='itmcatcol' title='item_category'  search='true' search-cond='='>
+							<select id='category' source='db' dbtable='category' value='id' label='name' />
+						</column>
+						<column id='itmstkcol' title='item_stock'  search='true' search-cond='like'>
+							<select id='stock' source='db' dbtable='stock' value='id' label='name' />
+						</column>
+						<column id='itmquantitycol' title='item_quantity' align='right'>
+							<text type='text'  id='quantity' />
+						</column>
+						<column id='itmaverage_pricecol' title='item_average_price' align='right'>
+							<text type='text'  id='average_price' readonly='true' />
+						</column>
+						<column id='itmpurchase_pricecol' title='payment_price' align='right'>
+							<text type='text'  id='payment_price'  />
+						</column>
+						<column id='itmbarcodecol' title='item_barcode' search='true' search-cond='like' align='right'>
+							<text type='text'  id='barcode' />
+						</column>
+						<column id='itmmin_requestcol' title='min_request' align='right'>
+							<text type='text'  id='min_request' />
+						</column>
+						<column id='itmmin_alertcol' title='min_alert' align='right'>
+							<text type='text'  id='min_alert' />
+						</column>
+						<column id='itmlast_in_pricecol' title='last_in_price' align='right'>
+							<text type='text'  id='last_in_price' readonly='true'/>
+						</column>
+					</table>
+				</accordion>
+			</accordions>
+		</tab>
+		<tab id='tab5' title='expenses' image='images/expenses80x80.png'>
+			<table id='table_expense' title='store_expense'
+					db_table='expense'
+					allow_insert='true' 
+					allow_delete='true'
+					allow_update='true'
+					fill_data='false'
+					order-by ="name"
+					width='800'
+					height='300'>
+				<column id='expidcol' title='expense_id'  pk='true' align='left'>
+					<text type='text'  id='id' readonly='true' />
+				</column>
+				<column id='expdatecol' title='expense_date' search='true' search-cond='>=' filter='true' align='center'>
+					<date type='text'  id='exp_date'	/>
+				</column>
+				<column id='expcostcol' title='expense_cost' search='true' search-cond='like' filter='true' align='right'>
+					<text type='text'  id='cost' 	/>
+				</column>
+				<column id='stkdesccol' title='expense_description' align='right' width='500'>
+					<text type='text'  id='description' />
+				</column>
+			</table>
+		</tab>
+		<tab id='tab6' title='reports' image='images/suppliers80x80.png'>
+			
+		</tab>
+		<tab id='tab67' title='system_mange' image='images/settings80x80.png'>
+			<accordions id='manageAcc'>
+				<accordion id='manage_accordion_users' title='store_userss'>
+					<table id='table_users' title='store_userss'
+						db_table='users'
+						allow_insert='true'
+						allow_delete='true'
+						allow_update='true'
+						fill_data='false'
+						order-by ="name"
+						width='800'
+						height='300'>
+						<column id='useridcol' title='user_id'  pk='true' align='left'>
+							<text type='text'  id='id' readonly='true' />
+						</column>
+						<column id='usernamecol' title='user_name' align='center'>
+							<text type='text'  id='user_name'/>
+						</column>
+						<column id='user_passwordcol' title='user_password' filter='true' align='center'>
+							<text type='text'  id='pass_word' 	/>
+						</column>
+						<column id='user_fullnamecol' title='user_fullname' align='center' width='200'>
+							<text type='text'  id='full_name' />
+						</column>
+						<column id='user_mobilecol' title='user_mobile' align='center' >
+							<text type='text'  id='mobile' />
+						</column>
+						<column id='user_addresscol' title='user_address' align='center' width='200'>
+							<text type='text'  id='address' />
+						</column>
+						
+					</table>
+				</accordion>
+				<accordion id='manage_accordion_settings' title='store_settings'>
+					<table id='table_settings' title='store_settings'
+						db_table='settings'
+						allow_update='true'
+						fill_data='false'
+						order-by ="name"
+						width='800'
+						height='300'>
+						<column id='settingidcol' title='setting_id'  pk='true' align='left'>
+							<text type='text'  id='id' readonly='true' />
+						</column>
+						<column id='settingnamecol' title='setting_name' align='center'>
+							<text type='text'  id='name'  readonly='true'/>
+						</column>
+						<column id='settingvalcol' title='setting_value' filter='true' align='center'>
+							<text type='text'  id='value' 	/>
+						</column>
+						<column id='settingdesccol' title='setting_description' align='right' width='500'>
+							<text type='text'  id='description' />
+						</column>
+					</table>
+				</accordion>
+				<accordion id='manage_accordion_language' title='language'>
+					<table id='table_lang' title='language'
+						db_table='lang'
+						allow_update='true'
+						fill_data='false'
+						order-by ="k"
+						width='800'
+						height='300'>
+						<column id='kcol' title='key'  pk='true' align='center'>
+							<text type='text'  id='k'  readonly='true'/>
+						</column>
+						<column id='arcol' title='ar_value' align='center' width='300'>
+							<text type='text'  id='ar' 	/>
+						</column>
+						<column id='encol' title='en_value' align='center' width='300'>
+							<text type='text'  id='en'/>
+						</column>
+					</table>
+				</accordion>
+				<accordion id='manage_accordion_msgs' title='messages'>
+					<table id='table_message' title='messages'
+						db_table='message'
+						allow_update='true'
+						fill_data='false'
+						order-by ="k"
+						width='800'
+						height='300'>
+						<column id='kcol' title='key'  pk='true' align='center'>
+							<text type='text'  id='k'  readonly='true'/>
+						</column>
+						<column id='arcol' title='ar_value' align='center' width='300'>
+							<text type='text'  id='ar' 	/>
+						</column>
+						<column id='encol' title='en_value' align='center' width='300'>
+							<text type='text'  id='en'/>
+						</column>
+					</table>
+				</accordion>
+			</accordions>	
+		</tab>
+	</tabs>
+</page>

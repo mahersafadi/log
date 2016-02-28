@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page id='p1'>
+	<menu id='basic_bar' class='menu'>
+		<cell width='10px'></cell>
+		<cell>
+			<label class='label1' id='welcome_label1' value='welcome'></label>
+			<label class='label1' id='welcome_label2' value=' - '></label>
+			<label class='label1' id='welcome_label3' value='#session.user.full_name'/>
+		</cell>
+		<cell width='80%'>
+			
+		</cell>
+		<cell>
+		<image id='logoff' 		width='40px' 	height='40px'	onclick="defaulthandler.logoff" 	label="logoff" 		action='securityhandler.logoff'		src='images/logout.png' title='logoff'	/>
+		<image id='help'		width='40px'	height='40px'	onclick="defaulthandler.help"		label="change_pw"	action='securityhandler.help'		src='images/help.png' title='help' />
+		</cell>
+	</menu>
+</page>
